@@ -5,10 +5,9 @@ from api_usage import installs, costs, events, orders
 
 
 def daily_run():
-    yesterday_str = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-    dt = {"date": yesterday_str}
 
-    print(dt)
+    yesterday_str = (datetime.date.today() - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    dt = {"date": yesterday_str}
 
     installs.installs_fn(dt)
     costs.costs_fn(dt)
@@ -18,7 +17,7 @@ def daily_run():
 
 def main():
 
-    schedule.every().day.at('00:58').do(daily_run)      #  -2 hours (UTC)
+    schedule.every().day.at('01:16').do(daily_run)      #  -2 hours (UTC)
 
     while True:
         schedule.run_pending()
@@ -27,3 +26,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # daily_run()

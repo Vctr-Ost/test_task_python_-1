@@ -15,7 +15,7 @@ CREATE TABLE installs (
     alpha_3 VARCHAR(100),
     flag VARCHAR(100),
     name VARCHAR(100),
-    numeric VARCHAR(100),
+    numeric INT,
     official_name VARCHAR(100)
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE costs (
     campaign VARCHAR(100),
     ad_group VARCHAR(100),
     medium VARCHAR(100),
-    cost VARCHAR(100)
+    cost FLOAT
 );
 
 -- Orders
