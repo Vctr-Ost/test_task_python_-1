@@ -15,6 +15,7 @@ def daily_run():
         costs.costs_fn(dt)
         orders.orders_fn(dt)
         events.events_fn(dt)
+        
     except json.JSONDecodeError as e:
         print(f"[INFO] No Data for {yesterday_str}\n       JSON decoding error: {e}")
     
@@ -22,7 +23,7 @@ def daily_run():
 
 def main():
 
-    schedule.every().day.at('01:29').do(daily_run)      #  -2 hours (UTC)
+    schedule.every().day.at('01:38').do(daily_run)      #  -2 hours (UTC)
 
     while True:
         schedule.run_pending()
