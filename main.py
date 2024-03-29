@@ -1,23 +1,28 @@
 import schedule
 import time
 import datetime
+import json
 from api_usage import installs, costs, events, orders
 
 
 def daily_run():
 
-    yesterday_str = (datetime.date.today() - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+    yesterday_str = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     dt = {"date": yesterday_str}
 
-    installs.installs_fn(dt)
-    costs.costs_fn(dt)
-    orders.orders_fn(dt)
-    events.events_fn(dt)
+    try:
+        installs.installs_fn(dt)
+        costs.costs_fn(dt)
+        orders.orders_fn(dt)
+        events.events_fn(dt)
+    except json.JSONDecodeError as e:
+        print(f"[INFO] No Data for {yesterday_str}\n       JSON decoding error: {e}")
+    
 
 
 def main():
 
-    schedule.every().day.at('01:16').do(daily_run)      #  -2 hours (UTC)
+    schedule.every().day.at('01:29').do(daily_run)      #  -2 hours (UTC)
 
     while True:
         schedule.run_pending()
@@ -26,4 +31,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # daily_run()
